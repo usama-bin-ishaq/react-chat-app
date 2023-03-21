@@ -13,7 +13,7 @@ import { auth, db } from "../../config/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { AuthContext } from "../../store";
 
-const SendMessage = () => {
+const SendMessage = ({ scroll }) => {
   const [message, setMessage] = useState("");
   const { state } = useContext(AuthContext);
 
@@ -38,6 +38,7 @@ const SendMessage = () => {
       ...body,
     });
     setMessage("");
+    scroll.current.scrollIntoView({ bahavior: "smooth" });
   };
 
   return (

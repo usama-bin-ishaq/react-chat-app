@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { Container } from "@mui/system";
-import React, { useState, useEffect, useContext, useMemo } from "react";
+import React, { useState, useEffect, useContext, useMemo, useRef } from "react";
 import Message from "./Message";
 import SendMessage from "./SendMessage";
 import {
@@ -14,6 +14,7 @@ import { auth, db } from "../../config/firebase";
 import { AuthContext } from "../../store";
 import { useAuthState } from "react-firebase-hooks/auth";
 const ChatBox = () => {
+  const scroll = useRef();
   const [messages, setMessages] = useState([]);
   const [statusMessages, setStatusMessages] = useState([]);
   const { state } = useContext(AuthContext);
@@ -41,9 +42,14 @@ const ChatBox = () => {
       message = messages?.filter((item) => !item.senderId);
     } else {
       // senderId ===current user uid || uid==current useruid
+
+      //uid send  senderId
+
+      // login sende
       message = messages?.filter(
         (item) => item.senderId === user.uid || item.uid === user.uid
       );
+      console.log(message);
     }
     return message;
   }, [messages, state.senderId]);
@@ -58,7 +64,8 @@ const ChatBox = () => {
           <Message key={message.id} message={message} />
         ))}
       </Box>
-      <SendMessage />
+      <span ref={scroll}></span>
+      <SendMessage scroll={scroll} />
     </Container>
   );
 };
