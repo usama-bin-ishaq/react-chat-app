@@ -30,6 +30,7 @@ const SendMessage = ({ scroll }) => {
     chatOpen === "private" && (body.senderId = senderId);
     console.log(body, state);
     await addDoc(collection(db, "messages"), {
+
       text: message,
       name: displayName,
       avatar: photoURL,
@@ -38,7 +39,7 @@ const SendMessage = ({ scroll }) => {
       ...body,
     });
     setMessage("");
-    scroll.current.scrollIntoView({ bahavior: "smooth" });
+    scroll.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (

@@ -41,14 +41,10 @@ const ChatBox = () => {
     if (state.chatOpen == "public") {
       message = messages?.filter((item) => !item.senderId);
     } else {
-      // senderId ===current user uid || uid==current useruid
-
-      //uid send  senderId
-
-      // login sende
       message = messages?.filter(
-        (item) => item.senderId === user.uid || item.uid === user.uid
+        ({ senderId, uid }) => senderId === user.uid || uid === user.uid
       );
+
       console.log(message);
     }
     return message;
@@ -64,7 +60,7 @@ const ChatBox = () => {
           <Message key={message.id} message={message} />
         ))}
       </Box>
-      <span ref={scroll}></span>
+      <span ref={scroll} />
       <SendMessage scroll={scroll} />
     </Container>
   );
